@@ -7,8 +7,6 @@
 
 import SwiftUI
 
-import SwiftUI
-
 struct PersonalitySelectorView: View {
     
     // Define the personality options and their descriptions
@@ -21,10 +19,12 @@ struct PersonalitySelectorView: View {
     ]
     
     @State private var selectedPersonalityIndex: Double = 2 // Default to "Snarky"
-    
+    @State private var sliderWidth: CGFloat = 0 // To store the width of the slider
+   
     var body: some View {
         VStack(spacing: 20) {
              Spacer()
+            
             // App icon
             Image("AppIconScreen") // Replace with actual app icon
                 .resizable()
