@@ -87,6 +87,7 @@ struct CurrentWeatherView: View {
             Text("\(viewModel.temperature)°")
                 .font(.system(size: 100, weight: .bold))
                 .multilineTextAlignment(.center)
+                .accessibilityLabel(Text("The current temperature is \(viewModel.temperature)°"))
             Text("Feels like \(viewModel.feelsLike)°")
                 .font(.subheadline)
                 .padding(.bottom)
@@ -104,7 +105,7 @@ struct HourlyForecastView: View {
                 VStack {
                     Text("\(hourWeather.hour):00")
                         .font(.caption)
-                        .accessibilityLabel(Text("\(hourWeather.hour)  hours"))
+                        .accessibilityLabel(Text("At\(hourWeather.hour)  hours the temperature will be "))
                     
                     Image(systemName: hourWeather.conditionIcon)
                     

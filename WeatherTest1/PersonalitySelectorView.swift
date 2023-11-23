@@ -46,6 +46,7 @@ struct PersonalitySelectorView: View {
                     .aspectRatio(contentMode: .fit)
                     .frame(width: 100, height: 100)
                     .padding(.top, 70)
+                    .accessibilityHidden(true)
                 
                 // Screen title and description
                 Text("Personality")
@@ -110,19 +111,22 @@ struct PersonalitySelectorView: View {
                                 .font(.headline)
                                 .fontDesign(.rounded)
                                 .fixedSize(horizontal: false, vertical: true)
+                                .accessibilityHidden(true)
                             
                             Text(personalities[Int(selectedPersonalityIndex.rounded())].description)
                                 .font(.caption)
                                 .fontDesign(.rounded)
                                 .fixedSize(horizontal: false, vertical: true)
-                        }.accessibilityElement(children: .combine)
-                            .padding()
-                            .frame(width: min(geometry.size.width - 50, maxBubbleWidth), height: 70, alignment: .leading)
+                                .accessibilityLabel("0 Professional, Sander will behave like a normal weather app. 1 Friendly, Sander will be friendly and helpful. 2 Snarky, Sander will be cheeky and playful. 3 Homicidal, Sander will be dark and menacing. 4 Sander, Sander will go way over the line")
+                        }
+                        .accessibilityElement(children: .combine)
+                        .padding()
+                        .frame(width: min(geometry.size.width - 50, maxBubbleWidth), height: 70, alignment: .leading)
                         // Apply a conditional background color based on the color scheme
-                            .background(colorScheme == .dark ? Color.black : Color.white)
-                            .cornerRadius(10)
-                            .shadow(radius: 3)
-                            .offset(x: bubbleOffset(for: selectedPersonalityIndex, in: geometry.size.width, bubbleWidth: min(geometry.size.width - 50, maxBubbleWidth)), y: -60)
+                        .background(colorScheme == .dark ? Color.black : Color.white)
+                        .cornerRadius(10)
+                        .shadow(radius: 3)
+                        .offset(x: bubbleOffset(for: selectedPersonalityIndex, in: geometry.size.width, bubbleWidth: min(geometry.size.width - 50, maxBubbleWidth)), y: -60)
                         .animation(.easeInOut, value: selectedPersonalityIndex)                }
                 }
                 .frame(height: 80) // Enough space for bubble
