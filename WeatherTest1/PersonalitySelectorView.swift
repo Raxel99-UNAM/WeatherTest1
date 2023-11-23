@@ -32,8 +32,10 @@ struct PersonalitySelectorView: View {
     
     @State private var selectedPersonalityIndex: Double = 2 // Default to "Snarky"
     @State private var bubbleWidth: CGFloat? // To store the dynamic width of the bubble
-
-   
+    
+    @Environment(\.colorScheme) var colorScheme
+    
+    
     var body: some View {
         NavigationView {
             VStack(spacing: 10) {
@@ -91,17 +93,20 @@ struct PersonalitySelectorView: View {
                             Slider(value: $selectedPersonalityIndex, in: 0...Double(personalities.count - 1), step: 1)
                                 .accentColor(Color.clear)
                                 .onChange(of: selectedPersonalityIndex) { newValue in
+                                    
                                     // Trigger haptic feedback when the selected value changes
                                     let impactMed = UIImpactFeedbackGenerator(style: .medium)
                                     impactMed.prepare()
                                     impactMed.impactOccurred()
                                 }
                         }
+                        //.accessibilityLabel(/*@START_MENU_TOKEN@*//*@PLACEHOLDER=Text Label@*/Text("Label")/*@END_MENU_TOKEN@*/)
                         .frame(width: geometry.size.width - 90) // Deduct total padding
                         
                         // Message bubble
                         VStack(alignment: .leading, spacing: 0) {
                             Text(personalities[Int(selectedPersonalityIndex.rounded())].name)
+                                .foregroundStyle(Color.primary)
                                 .font(.headline)
                                 .fontDesign(.rounded)
                                 .fixedSize(horizontal: false, vertical: true)
@@ -110,13 +115,14 @@ struct PersonalitySelectorView: View {
                                 .font(.caption)
                                 .fontDesign(.rounded)
                                 .fixedSize(horizontal: false, vertical: true)
-                        }
-                        .padding()
-                        .frame(width: min(geometry.size.width - 50, maxBubbleWidth), height: 70, alignment: .leading)
-                        .background(Color.white)
-                        .cornerRadius(10)
-                        .shadow(radius: 3)
-                        .offset(x: bubbleOffset(for: selectedPersonalityIndex, in: geometry.size.width, bubbleWidth: min(geometry.size.width - 50, maxBubbleWidth)), y: -60)
+                        }.accessibilityElement(children: .combine)
+                            .padding()
+                            .frame(width: min(geometry.size.width - 50, maxBubbleWidth), height: 70, alignment: .leading)
+                        // Apply a conditional background color based on the color scheme
+                            .background(colorScheme == .dark ? Color.black : Color.white)
+                            .cornerRadius(10)
+                            .shadow(radius: 3)
+                            .offset(x: bubbleOffset(for: selectedPersonalityIndex, in: geometry.size.width, bubbleWidth: min(geometry.size.width - 50, maxBubbleWidth)), y: -60)
                         .animation(.easeInOut, value: selectedPersonalityIndex)                }
                 }
                 .frame(height: 80) // Enough space for bubble
@@ -138,7 +144,7 @@ struct PersonalitySelectorView: View {
             }
             .navigationBarBackButtonHidden(true)
             .navigationBarHidden(true)
-        
+            
         }
     }
     // Calculate the horizontal offset for the message bubble
@@ -157,7 +163,7 @@ struct PersonalitySelectorView: View {
         return "\(personality.name): \(personality.description)"
     }
 }
-    
+
 #Preview {
     PersonalitySelectorView()
 }

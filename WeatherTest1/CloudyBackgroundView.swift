@@ -13,51 +13,65 @@ struct CloudyBackgroundView: View {
     @State private var cloudOffset3: CGFloat = UIScreen.main.bounds.width
 
     var body: some View {
-        // Placeholder for your background image
-        Image("CloudyBackground")
-            .resizable()
-            .scaledToFit()
-        // Clouds at the top of the screen
         ZStack {
-            // Cloud 1
-            Image(systemName: "cloud.fill")
-                .resizable()
-                .scaledToFit()
-                .frame(width: 80, height: 40)
-                .offset(x: cloudOffset1, y: -UIScreen.main.bounds.height / 5) // Position clouds at the top fifth of the screen
-                .onAppear {
-                    withAnimation(Animation.linear(duration: 7).repeatForever(autoreverses: false)) {
-                        cloudOffset1 = -UIScreen.main.bounds.width
-                    }
+            // Background image filling the top half of the screen
+            GeometryReader { geometry in
+                VStack(spacing: 0) {
+                    Image("CloudyBackground") // Replace with your actual image name
+                        .resizable()
+                        .foregroundColor(Color(red: 0.204, green: 0.668, blue: 0.786))
+                        .scaledToFill()
+                        .frame(width: geometry.size.width, height: geometry.size.height / 2)
+                        .clipped()
+                    LinearGradient(colors: [Color(red: -0.004, green: 0.375, blue: 0.485), Color(red: 0.204, green: 0.668, blue: 0.786)], startPoint: .bottom, endPoint: .top)
+                        .frame(height: geometry.size.height / 2)
                 }
+            }
+            .edgesIgnoringSafeArea(.all)
             
-            // Cloud 2
-            Image(systemName: "cloud.fill")
-                .resizable()
-                .scaledToFit()
-                .frame(width: 100, height: 50)
-                .offset(x: cloudOffset2, y: -UIScreen.main.bounds.height / 4) // Position clouds slightly lower
-                .onAppear {
-                    withAnimation(Animation.linear(duration: 5).repeatForever(autoreverses: false)) {
-                        cloudOffset2 = -UIScreen.main.bounds.width * 2
+            // Clouds at the top of the screen
+            ZStack {
+                // Cloud 1
+                Image(systemName: "cloud.fill")
+                    .resizable()
+                    .scaledToFit()
+                    .frame(width: 80, height: 40)
+                    .offset(x: cloudOffset1, y: -UIScreen.main.bounds.height / 5) // Position clouds at the top fifth of the screen
+                    .onAppear {
+                        withAnimation(Animation.linear(duration: 7).repeatForever(autoreverses: false)) {
+                            cloudOffset1 = -UIScreen.main.bounds.width
+                        }
                     }
-                }
-            
-            // Cloud 3
-            Image(systemName: "cloud.fill")
-                .resizable()
-                .scaledToFit()
-                .frame(width: 60, height: 30)
-                .offset(x: cloudOffset3, y: -UIScreen.main.bounds.height / 3) // Position clouds even lower
-                .onAppear {
-                    withAnimation(Animation.linear(duration: 6).repeatForever(autoreverses: false)) {
-                        cloudOffset3 = -UIScreen.main.bounds.width * 1.5
+                
+                // Cloud 2
+                Image(systemName: "cloud.fill")
+                    .resizable()
+                    .scaledToFit()
+                    .frame(width: 100, height: 50)
+                    .offset(x: cloudOffset2, y: -UIScreen.main.bounds.height / 4) // Position clouds slightly lower
+                    .onAppear {
+                        withAnimation(Animation.linear(duration: 5).repeatForever(autoreverses: false)) {
+                            cloudOffset2 = -UIScreen.main.bounds.width * 2
+                        }
                     }
-                }
+                
+                // Cloud 3
+                Image(systemName: "cloud.fill")
+                    .resizable()
+                    .scaledToFit()
+                    .frame(width: 60, height: 30)
+                    .offset(x: cloudOffset3, y: -UIScreen.main.bounds.height / 3) // Position clouds even lower
+                    .onAppear {
+                        withAnimation(Animation.linear(duration: 6).repeatForever(autoreverses: false)) {
+                            cloudOffset3 = -UIScreen.main.bounds.width * 1.5
+                        }
+                    }
+            }
+            .opacity(0.3) // Set the opacity to make clouds less pronounced
         }
-        .opacity(0.9) // Set the opacity to make clouds less pronounced
     }
 }
+
 
 // Updated AnimatedWeatherBackgroundView to only display CloudyBackgroundView
 struct AnimatedWeatherBackgroundView: View {

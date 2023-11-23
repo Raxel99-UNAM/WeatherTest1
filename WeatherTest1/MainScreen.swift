@@ -10,37 +10,49 @@ import WeatherKit
 
 struct MainScreen: View {
     @StateObject var viewModel = WeatherViewModel() // Your ViewModel should handle the WeatherKit data fetching
-
+    
     var body: some View {
-        ZStack {
-            // Animated background
-            AnimatedWeatherBackgroundView()
-
-            // Rest of your UI content
-            VStack {
-                // Display the location name, temperature, feels like temperature, etc.
-                CurrentWeatherView(viewModel: viewModel)
-
-                // Display the hourly forecast
-                ScrollView(.horizontal, showsIndicators: false) {
-                    HourlyForecastView(hourlyForecast: viewModel.hourlyForecast)
-                        .padding(.horizontal)
+        NavigationView{
+            ZStack(alignment: .center) {
+                // Animated background
+                AnimatedWeatherBackgroundView().accessibilityHidden(true)
+                
+                // Rest of your UI content
+                VStack {
+                    // Display the location name, temperature, feels like temperature, etc.
+                    CurrentWeatherView(viewModel: viewModel)
+                    //
+                    //                        Spacer(minLength: 190)
+                    Rectangle()
+                        .foregroundStyle(Color.clear)
+                    // Display the hourly forecast
+                    ScrollView(.horizontal, showsIndicators: false) {
+                        HourlyForecastView(hourlyForecast: viewModel.hourlyForecast)
+                            .padding(.horizontal)
+                    }
+                    
+                    // Display any wind warnings and weather narrative
+                    WeatherAlertsView(windWarning: viewModel.windWarning, weatherNarrative: viewModel.weatherNarrative)
+                    
+                    // Display additional details like wind speed and moon phase
+                    AdditionalDetailsView(gusts: "25 mph gusts", moonPhase: "Waxing crescent moon")
+                    
+                    Spacer(minLength: 50)
+                    
+                    // Custom Tab Bar at the bottom
+                    CustomTabBar()
                 }
-
-                // Display any wind warnings and weather narrative
-                WeatherAlertsView(windWarning: viewModel.windWarning, weatherNarrative: viewModel.weatherNarrative)
-
-                // Display additional details like wind speed and moon phase
-                AdditionalDetailsView(gusts: "25 mph gusts", moonPhase: "Waxing crescent moon")
-
-                Spacer()
-
-                // Custom Tab Bar at the bottom
-                CustomTabBar()            }
+            }
+            .edgesIgnoringSafeArea(.all)
         }
-        .edgesIgnoringSafeArea(.all)
+        .navigationBarBackButtonHidden(true)
+        .navigationBarHidden(true)
     }
 }
+
+
+
+
 
 struct CurrentWeatherView: View {
     @ObservedObject var viewModel: WeatherViewModel
@@ -52,6 +64,8 @@ struct CurrentWeatherView: View {
                 Button(action: {}) {
                     Image(systemName: "square.and.arrow.up")
                         .font(.title2)
+                        .padding(.horizontal)
+                        .foregroundStyle(Color.black)
                 }
                 Spacer()
                 
@@ -63,15 +77,19 @@ struct CurrentWeatherView: View {
                 Button(action: {}) {
                     Image(systemName: "ellipsis.circle.fill")
                         .font(.title2)
+                        .padding(.horizontal)
+                        .foregroundStyle(Color.black)
                 }
             }
-            .padding()
-
+            .padding(.top)
+            
             // Temperature Display
             Text("\(viewModel.temperature)°")
                 .font(.system(size: 100, weight: .bold))
+                .multilineTextAlignment(.center)
             Text("Feels like \(viewModel.feelsLike)°")
                 .font(.subheadline)
+                .padding(.bottom)
         }
         .padding(.top, 40) // Space for top bar
     }
@@ -86,9 +104,13 @@ struct HourlyForecastView: View {
                 VStack {
                     Text("\(hourWeather.hour):00")
                         .font(.caption)
+                        .accessibilityLabel(Text("\(hourWeather.hour)  hours"))
+                    
                     Image(systemName: hourWeather.conditionIcon)
+                    
                     Text("\(hourWeather.temperature)°")
                 }
+                .accessibilityElement(children: .combine)
             }
         }
     }
@@ -100,6 +122,14 @@ struct WeatherAlertsView: View {
     
     var body: some View {
         VStack {
+            
+            // Narrative Text
+            Text(weatherNarrative)
+                .padding()
+                .multilineTextAlignment(.center)
+                .frame(maxWidth: .infinity)
+            
+            
             // Wind Warning
             if windWarning {
                 Text("WIND WARNING")
@@ -109,12 +139,7 @@ struct WeatherAlertsView: View {
                     .background(Color.red)
                     .cornerRadius(10)
             }
-
-            // Narrative Text
-            Text(weatherNarrative)
-                .padding()
-                .multilineTextAlignment(.center)
-                .frame(maxWidth: .infinity)
+            
         }
     }
 }
@@ -134,7 +159,7 @@ struct AdditionalDetailsView: View {
 struct DetailView: View {
     var title: String
     var icon: String
-
+    
     var body: some View {
         HStack {
             Image(systemName: icon)
@@ -144,7 +169,7 @@ struct DetailView: View {
         .padding()
         .background(Color.white.opacity(0.2))
         .cornerRadius(10)
-        .padding(.horizontal)
+        .padding()
     }
 }
 
