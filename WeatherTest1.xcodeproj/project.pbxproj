@@ -13,6 +13,8 @@
 		9CB647992B05039E00D2FCB1 /* PersonalitySelectorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CB647982B05039E00D2FCB1 /* PersonalitySelectorView.swift */; };
 		9CB6479B2B05039F00D2FCB1 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9CB6479A2B05039F00D2FCB1 /* Assets.xcassets */; };
 		9CB6479E2B05039F00D2FCB1 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9CB6479D2B05039F00D2FCB1 /* Preview Assets.xcassets */; };
+		9CE4E13C2B0E50B600985FEF /* CloudyBackgroundView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CE4E13B2B0E50B600985FEF /* CloudyBackgroundView.swift */; };
+		9CE4E13E2B0E68D800985FEF /* WeatherView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9CE4E13D2B0E68D800985FEF /* WeatherView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -23,6 +25,8 @@
 		9CB647982B05039E00D2FCB1 /* PersonalitySelectorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonalitySelectorView.swift; sourceTree = "<group>"; };
 		9CB6479A2B05039F00D2FCB1 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		9CB6479D2B05039F00D2FCB1 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		9CE4E13B2B0E50B600985FEF /* CloudyBackgroundView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CloudyBackgroundView.swift; sourceTree = "<group>"; };
+		9CE4E13D2B0E68D800985FEF /* WeatherView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -58,6 +62,8 @@
 				9CB647962B05039E00D2FCB1 /* WeatherTest1App.swift */,
 				9CB647982B05039E00D2FCB1 /* PersonalitySelectorView.swift */,
 				9C57D2D72B07BC9500F04945 /* MainScreen.swift */,
+				9CE4E13D2B0E68D800985FEF /* WeatherView.swift */,
+				9CE4E13B2B0E50B600985FEF /* CloudyBackgroundView.swift */,
 				9C57D2D92B07C75200F04945 /* WeatherViewModel.swift */,
 				9CB6479A2B05039F00D2FCB1 /* Assets.xcassets */,
 				9CB6479C2B05039F00D2FCB1 /* Preview Content */,
@@ -143,8 +149,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9CE4E13C2B0E50B600985FEF /* CloudyBackgroundView.swift in Sources */,
 				9C57D2D82B07BC9500F04945 /* MainScreen.swift in Sources */,
 				9C57D2DA2B07C75200F04945 /* WeatherViewModel.swift in Sources */,
+				9CE4E13E2B0E68D800985FEF /* WeatherView.swift in Sources */,
 				9CB647992B05039E00D2FCB1 /* PersonalitySelectorView.swift in Sources */,
 				9CB647972B05039E00D2FCB1 /* WeatherTest1App.swift in Sources */,
 			);

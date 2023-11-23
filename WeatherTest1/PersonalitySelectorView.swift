@@ -136,7 +136,9 @@ struct PersonalitySelectorView: View {
                 
                 Spacer()
             }
+            .navigationBarBackButtonHidden(true)
             .navigationBarHidden(true)
+        
         }
     }
     // Calculate the horizontal offset for the message bubble

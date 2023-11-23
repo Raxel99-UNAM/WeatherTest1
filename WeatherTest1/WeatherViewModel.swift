@@ -16,6 +16,7 @@ class WeatherViewModel: ObservableObject {
     @Published var feelsLike: Int = 0
     @Published var weatherNarrative: String = ""
     @Published var hourlyForecast: [HourWeather] = []
+    @Published var currentWeather: WeatherCondition?
     
     private var weatherService = WeatherService.shared
     
@@ -45,6 +46,7 @@ class WeatherViewModel: ObservableObject {
                                     temperature: Int(forecast.temperature.converted(to: .celsius).value),
                                     conditionIcon: forecast.condition.sfSymbolName)
                     }
+                    self.currentWeather = weather.currentWeather.condition
                 }
             } catch {
                 self.weatherNarrative = "Failed to retrieve data."
